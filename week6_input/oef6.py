@@ -1,5 +1,5 @@
 #oef6
-
+import requests
 
 
 def download():
@@ -12,4 +12,11 @@ def download():
     else:
         return none
 
-download()
+def outdoor():
+    namen = set()
+    for sportcomplex in json_data:
+        namen.add(sportcomplex["benaming"])
+    return namen
+
+json_data = download()
+print(outdoor())
