@@ -1,8 +1,20 @@
-class Hotel:
-    def __init__(self, dictionarry) -> None:
-        super().__init__()
-        self._dictionarry = dictionarry
+from classes.Hotelkamer import Hotelkamer
 
-    def dic(self):
-        return self._dictionarry
+class Hotel:
+    def __init__(self, kamers = {}) -> None:
+        super().__init__()
+        self._kamers = kamers
+        for kamer in kamers:
+            self._kamers[kamer] = Hotelkamer(kamer)
+
+    def __str__(self) -> str:
+        return super().__str__()
+
+    def geefKamer(self,kamernummer):
+        if kamernummer in self._kamers.keys():
+            return self._kamers[kamernummer]
+        else:
+            return None
+
+
 

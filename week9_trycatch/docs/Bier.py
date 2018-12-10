@@ -1,61 +1,103 @@
 class Bier:
-    def __init__(self, gisting:str, graansoort:str, regio:str, percentage: int) -> None:
+    def __init__(self, nummer: str, naam: str, regio: str, kleur: str, percentage: float) -> None:
         super().__init__()
-        self.gisting = gisting
-        self.graansoort = graansoort
+        self.nummer = nummer
+        self.naam = naam
         self.regio = regio
+        self.kleur = kleur
         self.percentage = percentage
 
     @property
-    def gisting(self):
-        return self._gisting
+    def nummer(self):
+        return self.__nummer
 
-    @gisting.setter
-    def gisting(self, value):
-        if value.isinstance(str):
+    @nummer.setter
+    def nummer(self, value):
+        if isinstance(value, str):
             if value == "":
-                self._gisting =  "onbekend"
+                self.__nummer = "onbekend"
             else:
-                self._gisting = value
+                self.__nummer = value
+        else:
+           raise ValueError("foute value nummer")
 
     @property
-    def graansoort(self):
-        return self._graansoort
+    def naam(self):
+        return self.__naam
 
-    @graansoort.setter
-    def graansoort(self, value):
-        if value.isinstance(str):
+    @naam.setter
+    def naam(self, value):
+        if isinstance(value, str):
             if value == "":
-                self._graansoort =  "onbekend"
+                self.__naam = "onbekend"
             else:
-                self._graansoort = value
+                self.__naam = value
         else:
-            raise ValueError("foute value")
-
-
+            raise ValueError("foute value naam")
 
     @property
     def regio(self):
-        return self._regio
+        return self.__regio
 
     @regio.setter
     def regio(self, value):
-        if value == "":
-            self._regio =  "onbekend"
+        if isinstance(value, str):
+            self.__regio = value
         else:
-            self._regio = value
+            raise ValueError("foute regio")
+
+    @property
+    def kleur(self):
+        return self.__kleur
+
+    @kleur.setter
+    def kleur(self, value = "onbekend"):
+        if isinstance(value, str):
+            self.__kleur = value
+        else:
+            raise ValueError("fout kleur")
 
     @property
     def percentage(self):
-        return self._percentage
+        return self.__percentage
 
     @percentage.setter
     def percentage(self, value):
-        if type(value) is float or type(value) is int and value >= 0 and value <= 100:
-            self._percentage = value
+        if isinstance(value, float):
+            self.__percentage = value
+        elif value == "":
+            self.__percentage = -1
         else:
             raise ValueError("foute value")
 
-    def __str__(self) -> str:
-        return self._gisting + "," + self._graansoort + "," + self._regio + "," + str(self._percentage)
+    @staticmethod
+    def inlezen_bieren(bestandsnaam):
+        bieren = []
+        try:
+            fo = open(bestandsnaam, "r")
+            line = fo.readline()
+            line = fo.readline()
+            while (line != ""):
+                line = line.rstrip('\n')
+                delen = line.split(";")
+                try:
+                    bier = Bier(delen[0], delen[1], delen[2], delen[3], float(delen[4].replace(",",".")))
+                    bieren.append(bier)
+                except ValueError as ex:
+                    print(ex)
+                line = fo.readline()
+            fo.close()
+        except FileNotFoundError:
+            print("foute naam van bestand")
+        return bieren
 
+    @staticmethod
+    def zoek_naam(waar, naam):
+        a  = []
+        for i in waar:
+            if naam.lower() in i.naam.lower():
+                a.append(i)
+        return a
+
+    def __str__(self) -> str:
+        return str(self.nummer) + "," + self.naam + "," + self.regio + "," + self.kleur + ", " + str(self.percentage)
