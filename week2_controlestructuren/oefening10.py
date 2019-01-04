@@ -3,5 +3,5 @@ def bereken(a,b,c = 0,d = 0):
     print(berekening)
 
 bereken(1,5,3,4)
-bereken(b = 5, a = 6, c = 2, d = 0 )
+bereken(b = 5, a = 1, c = 3, d = 4 )
 bereken(2,4)

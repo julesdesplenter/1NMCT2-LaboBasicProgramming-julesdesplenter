@@ -1,49 +1,49 @@
 import math
 
+
 class Meetwiel:
-    def __init__(self, straal:int,omwenteling:int) -> None:
+    def __init__(self, straal: int, omwenteling: int) -> None:
         super().__init__()
         self.straal = straal
         self.omwenteling = omwenteling
 
-    def omtrek(self):
-        return ((self.straal**2) * math.pi)
+    @property
+    def straal(self):
+        return self.__straal
 
-    def afstand(self):
-        return (((self.straal**2) * math.pi)*self.omwenteling)
+    @straal.setter
+    def straal(self, value):
+        if isinstance(value, int):
+            self.__straal = value
+        else:
+            raise ValueError("straal")
 
     @property
     def omwenteling(self):
-        return self._omwenteling
+        return self.__omwenteling
 
     @omwenteling.setter
     def omwenteling(self, value):
-        self._omwenteling = value
+        if isinstance(value, int):
+            self.__omwenteling = value
+        else:
+            raise ValueError("omwenteling")
 
-    def check(self, _iets):
-        try:
-            int(self._iets)
-            return True
-        except TypeError:
-            return False
+    def omtrek(self):
+        return (self.straal ** 2) * math.pi
 
+    def afstand(self):
+        return self.omtrek() * self.omwenteling
 
     def rijden(self):
-        aantal = input("geef het aantal omwentelingen")
-        if self.check(aantal):
-            int(aantal)
-            self.omwenteling += aantal
-        else:
-            return "niet geldig"
-
-
-    def __str__(self) -> str:
-        return "de afstand is " + str(((self.straal**2) * math.pi)*self.omwenteling)
-
-
-
-
-
-
-
+        while True:
+            omwen = input("geef hoeveel omwentelingen stop met c")
+            if omwen == "c":
+                return False
+            else:
+                try:
+                    a  = int(omwen)
+                    self.omwenteling = self.omwenteling + a
+                except ValueError:
+                    print("geen int")
 

@@ -1,7 +1,7 @@
 from classes.Hotelkamer import Hotelkamer
 
 class Hotel:
-    def __init__(self, kamers = {}) -> None:
+    def __init__(self, kamers) -> None:
         super().__init__()
         self._kamers = kamers
         for kamer in kamers:

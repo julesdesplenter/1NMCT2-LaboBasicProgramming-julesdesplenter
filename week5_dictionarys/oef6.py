@@ -4,7 +4,8 @@ def addElements(dic,val,key):
     if val in dic:
         print("element zit al in de lijst")
     else:
-        dic.update({val: key})
+        # dic.update({val: key})
+        dic[val] = key
 
 def printDictionary(dictionary):
     for key,value in dictionary.items():

@@ -6,4 +6,12 @@ def maximum(a,b,c):
     else:
         print(c)
 
+def maxi(a,b,c):
+    if isinstance(a,int) and isinstance(b,int) and isinstance(c,int):
+        lijst = [a,b,c]
+        print(max(lijst))
+
+
+
 maximum(7,3,9)
+maxi(1,2,3)
